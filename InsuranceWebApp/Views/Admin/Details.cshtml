@@ -1,0 +1,81 @@
+﻿@model InsuranceWebApp.ViewModels.ClientInsuranceViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6 client-info">
+            <h1 class="mb-4">@Model.ClientData.FirstName @Model.ClientData.LastName</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>@Model.ClientData.Address</p>
+                </div>
+                <div class="col-md-6">
+                    <p>@Model.ClientData.Email</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>@Model.ClientData.City</p>
+                </div>
+                <div class="col-md-6">
+                    <p>@Model.ClientData.PhoneNumber</p>
+                </div>
+            </div>
+            <p class="mb-4">@Model.ClientData.ZipCode</p>
+            <h4 class="mb-2">Active Insurances</h4>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <table class="table table-bordered border-dark">
+                <thead>
+                    <tr>
+                        <th>
+                            Insurance
+                        </th>
+                        <th>
+                            Amount
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.InsuranceData != null)
+                    {
+                        @foreach (var item in Model.InsuranceData)
+                        {
+                            <tr>
+                                <td>
+                                    <a asp-controller="Insurance" asp-action="Details" asp-route-id="@item.Id">
+                                        @Html.DisplayFor(modelItem => item.InsuranceType)
+                                    </a>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount) EUR
+                                </td>
+                                <td class="align-items-end" style="white-space: nowrap; width: 1%;">
+                                    <a class="articles-button bg-danger rounded border-0 text-light" asp-controller="Insurance" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                    <a class="articles-button bg-warning rounded border-0 text-light" asp-controller="Insurance" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center mb-4 gap-2">
+    <a class="articles-button bg-primary rounded border-0 text-light" asp-controller="Insurance" asp-action="Create" asp-route-clientId="@Model.ClientData.Id">Add new insurance</a>
+    <a class="articles-button bg-warning rounded border-0 text-light" asp-action="Edit" asp-route-id="@Model.ClientData.Id">Edit client</a>
+    <a class="articles-button bg-danger rounded border-0 text-light" asp-action="Delete" asp-route-id="@Model.ClientData.Id">Delete client</a>
+</div>

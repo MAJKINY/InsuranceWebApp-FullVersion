@@ -1,0 +1,56 @@
+﻿@model InsuranceWebApp.ViewModels.CreateInsuranceViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <h1>@Html.DisplayFor(model => model.InsuranceData.InsuranceType) - @Model.ClientData.FirstName @Model.ClientData.LastName</h1>
+            <hr />
+            <dl class="row">
+                <dt class = "col-sm-6">
+                    @Html.DisplayNameFor(model => model.InsuranceData.Amount)
+                </dt>
+                <dd class = "col-sm-6 text-end">
+                    @Html.DisplayFor(model => model.InsuranceData.Amount) EUR
+                </dd>
+                <dt class = "col-sm-6">
+                    @Html.DisplayNameFor(model => model.InsuranceData.SubjectOfInsurance)
+                </dt>
+                <dd class="col-sm-6 text-end">
+                    @Html.DisplayFor(model => model.InsuranceData.SubjectOfInsurance)
+                </dd>
+                <dt class = "col-sm-6">
+                    @Html.DisplayNameFor(model => model.InsuranceData.StartOfInsurance)
+                </dt>
+                <dd class="col-sm-6 text-end">
+                    @Html.DisplayFor(model => model.InsuranceData.StartOfInsurance)
+                </dd>
+                <dt class = "col-sm-6">
+                    @Html.DisplayNameFor(model => model.InsuranceData.EndOfInsurance)
+                </dt>
+                <dd class="col-sm-6 text-end">
+                    @Html.DisplayFor(model => model.InsuranceData.EndOfInsurance)
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>
+@if (User.IsInRole(UserRoles.Admin))
+{
+    <div class="d-flex justify-content-center mb-4 gap-2">
+        <a class="articles-button bg-primary rounded border-0 text-light" asp-controller="Admin" asp-action="Details" asp-route-id="@Model.InsuranceData.ClientId">Back to client</a>
+        <a class="articles-button bg-warning rounded border-0 text-light" asp-action="Edit" asp-route-id="@Model.InsuranceData.Id">Edit</a>
+        <a class="articles-button bg-danger rounded border-0 text-light" asp-action="Delete" asp-route-id="@Model.InsuranceData.Id">Edit</a>
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-center mb-4 gap-2">
+        <a class="articles-button bg-primary rounded border-0 text-light" asp-controller="Client" asp-action="Details" asp-route-id="@Model.InsuranceData.ClientId">Back to profile</a>
+    </div>
+}
+

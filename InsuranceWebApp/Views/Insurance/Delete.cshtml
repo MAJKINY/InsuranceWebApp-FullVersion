@@ -1,0 +1,21 @@
+﻿@model InsuranceWebApp.Models.Insurance
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <h4>Are you sure you want to delete @Html.DisplayFor(model => model.InsuranceType)?</h4>
+        <div class="d-flex justify-content-center mb-4">
+            <form class="py-1" asp-action="Delete">
+                <input type="hidden" asp-for="Id" />
+                <input type="submit" value="Delete" class="articles-button bg-danger rounded border-0 text-light" />
+                <a asp-controller="Admin" asp-action="Details" class="articles-button bg-primary rounded border-0 text-light">Back to List</a>
+            </form>
+
+                </<div>
+                </div>
+            </div>
+</div>

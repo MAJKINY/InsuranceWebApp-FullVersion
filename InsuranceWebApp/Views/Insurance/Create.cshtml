@@ -1,0 +1,71 @@
+﻿@model InsuranceWebApp.ViewModels.CreateInsuranceViewModel
+
+@{
+    ViewData["Title"] = "Add Insurance to Client";
+}
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <h4 class="mb-4">Add insurance to @Model.ClientData.FirstName @Model.ClientData.LastName</h4>
+
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="InsuranceData.ClientId" />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <label asp-for="InsuranceData.InsuranceType" class="form-label"></label>
+                    <select asp-for="InsuranceData.InsuranceType" class="form-control"
+                            asp-items="Html.GetEnumSelectList<InsuranceWebApp.Models.Insurance.TypeOfInsurance>()">
+                    </select>
+                    <span asp-validation-for="InsuranceData.InsuranceType" class="text-danger"></span>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label asp-for="InsuranceData.Amount" class="form-label"></label>
+                        <input asp-for="InsuranceData.Amount" class="form-control" />
+                        <span asp-validation-for="InsuranceData.Amount" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="InsuranceData.SubjectOfInsurance" class="form-label"></label>
+                        <input asp-for="InsuranceData.SubjectOfInsurance" class="form-control" />
+                        <span asp-validation-for="InsuranceData.SubjectOfInsurance" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label asp-for="InsuranceData.StartOfInsurance" class="form-label"></label>
+                        <input asp-for="InsuranceData.StartOfInsurance" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" style="min-width: 100%;" />
+                        <span asp-validation-for="InsuranceData.StartOfInsurance" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="InsuranceData.EndOfInsurance" class="form-label"></label>
+                        <input asp-for="InsuranceData.EndOfInsurance" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" style="min-width: 100%;" />
+                        <span asp-validation-for="InsuranceData.EndOfInsurance" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center mb-4">
+                    <input type="submit" value="Save" class="btn btn-primary px-4" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.0.3/tinymce.min.js"></script>
+    <script src="~/js/initTinyMCE.js"></script>
+}
+
